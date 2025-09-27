@@ -1,0 +1,37 @@
+
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+    <h1 class="display-4">Skystore</h1>
+    <p class="lead">Skystore - это отличный вариант хранения ваших плагинов и примеров кода, который вы бы хотели
+        продать</p>
+</div>
+
+<div class="container">
+    <div class="row justify-content-center">
+        {% for product in products %}
+        <div class="col-md-3 mb-4 d-flex align-items-stretch">
+            <div class="card w-100 mb-4 box-shadow">
+                <div class="card-header text-center">
+                    <h5 class="my-0 font-weight-normal">{{ product.name }}</h5>
+                </div>
+                    {% if product.photo_product %}
+  <img src="{{product.photo_product.url}}" class="card-img-top" alt="{{product_detail.name}}">
+    {% endif %}
+                <div class="card-body d-flex flex-column">
+                    <p class="card-title pricing-card-title text-center">{{ product.description|truncatechars:100 }}</p>
+                    <ul class="list-unstyled mt-3 mb-4 flex-fill">
+                        {% for feature in product.features %}
+                        <li>- {{ feature }}</li>
+                        {% endfor %}
+                    </ul>
+                    <button type="button" class="btn btn-lg btn-block btn-outline-primary">Купить за {{ product.price }}</button>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}
