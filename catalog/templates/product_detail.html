@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{{product}}
+<div class="d-flex justify-content-center">
+<div class="card" style="width: 30rem;">
+    {% if product_detail.photo_product %}
+  <img src="{{product_detail.photo_product.url}}" class="card-img-top" alt="{{product_detail.name}}">
+    {% endif %}
+  <div class="card-body text-center">
+    <h4 class="card-title">{{product_detail.name}}</h4>
+    <p class="card-text">{{product_detail.description}}</p>
+    <a href="#" class="btn btn-primary mt-3">
+            Купить за {{ product_detail.price }}
+      </a>
+  </div>
+</div>
+</div>
+{% endblock %}
