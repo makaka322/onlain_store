@@ -22,11 +22,22 @@
                         {% endfor %}
                     </ul>
                     <a href="{% url 'blog:blog_detail' blog.pk %}">Читать подробнее</a>
+                    {% if perms.blog.change_blog %}
+                        <div class="position-absolute bottom-0 end-0 d-flex gap-2 m-3">
+                            <a href="{% url 'blog:blog_update' blog.pk %}" class="btn btn-sm btn-white text-primary border border-primary">Изменить</a>
+                            <a href="{% url 'blog:blog_delete' blog.pk %}" class="btn btn-sm btn-white text-primary border border-primary">Удалить</a>
+                        </div>
+                    {% endif %}
                 </div>
             </div>
         </li>
         {% endfor %}
     </ul>
+    {% if perms.blog.add_blog %}
+    <div class="mt-4 text-start">
+        <a href="{% url 'blog:blog_create' %}" class="btn btn-primary btn-lg">Добавить статью</a>
+    </div>
+    {% endif %}
 </div>
 
 {% endblock %}
