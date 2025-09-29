@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container">
+
+    <div class="row text-center">
+        <div class="p-5 mb-4 bg-body-tertiary rounded-3">
+      <div class="container-fluid py-5">
+                <div class="card-header">
+                    <img class="rounded mx-auto d-block" src="{{ blog.photo.url }}" alt="Card image cap" width="400" height="200">
+                </div>
+                <div class="card-body">
+                    <h1 class="card-title pricing-card-title">{{ blog.title }}</h1>
+                    <h3 class="card-title pricing-card-title">Количество просмотров: {{ blog.views_counter }}</h3>
+                    <p>Дата создания: {{ blog.created_at | date:"d M Y" }}</p>
+                    <p>Описание: {{ blog.content }}</p>
+                    <p>Статус:
+                        {% if blog.is_published %}
+                            Опубликовано
+                         {% else %}
+                             Не опубликовано
+                        {% endif %}
+                        </p>
+                    <a class="btn btn-primary" href="{% url 'blog:blog_list' %}" role="button">Каталог статей</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="pricing-header px-3 py-5 text-center bg-light mb-4">
+    <h1 class="display-4">Skystore</h1>
+</div>
+
+<div class="container">
+    <ul class="list-group list-group-flush">
+        {% for blog in object_list %}
+        <li class="list-group-item mb-3">
+            <div class="card shadow-sm flex-row align-items-center">
+                {% if blog.photo_blog %}
+                <img src="{{ blog.photo_blog.url }}" class="card-img-left me-3" style="width: 150px; object-fit: cover;" alt="{{ blog.title }}">
+                {% endif %}
+                <div class="card-body p-3 d-flex flex-column">
+                    <h5 class="card-title mb-2">{{ blog.title }}</h5>
+                    <p class="card-text mb-2">{{ blog.content|truncatechars:150 }}</p>
+                    <ul class="list-inline mb-2">
+                        {% for feature in blog.features %}
+                        <li class="list-inline-item badge bg-primary me-1">{{ feature }}</li>
+                        {% endfor %}
+                    </ul>
+                    <a href="{% url 'blog:blog_detail' blog.pk %}">Читать подробнее</a>
+                </div>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+
+{% endblock %}
