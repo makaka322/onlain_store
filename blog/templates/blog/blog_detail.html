@@ -7,7 +7,9 @@
         <div class="p-5 mb-4 bg-body-tertiary rounded-3">
       <div class="container-fluid py-5">
                 <div class="card-header">
+                    {% if object.photo_product %}
                     <img class="rounded mx-auto d-block" src="{{ blog.photo.url }}" alt="Card image cap" width="400" height="200">
+                    {% endif %}
                 </div>
                 <div class="card-body">
                     <h1 class="card-title pricing-card-title">{{ blog.title }}</h1>
