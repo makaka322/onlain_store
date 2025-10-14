@@ -39,3 +39,8 @@ class ProductForm(StyleFormMixin, ModelForm):
         if price < 0:
             raise ValidationError("Цена товара не может быть отрицательным числом. Пожалуйста, введите корректное значение цены")
         return price
+
+class ProductModeratorForm(StyleFormMixin, ModelForm):
+    class Meta:
+        model = Product
+        fields = ["is_published"]

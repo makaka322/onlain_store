@@ -13,12 +13,12 @@
     <a href="#" class="btn btn-primary mt-3">
             Купить за {{ object.price }}
       </a>
-        {% if perms.catalog.change_product or perms.catalog.delete_product %}
+        {% if product.owner == user %}
         <div class="mt-3 d-flex justify-content-center gap-2">
-            {% if perms.catalog.change_product %}
+            {% if product.owner == user %}
             <a href="{% url 'catalog:product_update' object.pk %}" class="btn btn-light text-primary border border-primary">Редактировать</a>
             {% endif %}
-            {% if perms.catalog.delete_product %}
+            {% if product.owner == user %}
             <a href="{% url 'catalog:product_delete' object.pk %}" class="btn btn-light text-primary border border-primary">Удалить</a>
             {% endif %}
         </div>
@@ -27,3 +27,4 @@
 </div>
 </div>
 {% endblock %}
+
