@@ -4,9 +4,11 @@ from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy, reverse
 from django.views import View
 from django.views.generic import ListView, DetailView, TemplateView,  CreateView, DeleteView, UpdateView
+from django.core.cache import cache
 
 from catalog.forms import ProductForm
-from catalog.models import Product
+from catalog.models import Product, Category
+from catalog.services import get_products_by_category
 
 
 class ContactView(TemplateView):
@@ -14,6 +16,14 @@ class ContactView(TemplateView):
 
 class ProductListView(ListView):
     model = Product
+
+
+    def get_queryset(self):
+        queryset = cache.get('product_queryset')
+        if not queryset:
+            queryset = super().get_queryset()
+            cache.set('product_queryset', queryset, 60 * 10)
+        return queryset
 
 class ProductDetailView(DetailView):
     model = Product
@@ -64,3 +74,19 @@ class UnpublishProductView(LoginRequiredMixin, View):
         product.save()
 
         return redirect("catalog:product_detail", pk=pk)
+
+
+class CategoryListViews(ListView):
+    model = Category
+    template_name = "category_list.html"
+
+
+class CategoryProductsDetailView(DetailView):
+    model = Category
+    template_name = "catalog/product_category.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        category = self.object.id
+        context['products_category'] = get_products_by_category(category)
+        return context
